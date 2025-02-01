@@ -26,6 +26,12 @@
             <h1>欢迎来到Vekaris的博客</h1>
             <p>在这里，我将分享我的生活感悟、技术心得和各种有趣的想法。</p>
             <a href="posts.html" class="btn">查看所有文章</a>
+
+            <!-- 最近更新的文章框 -->
+            <div id="recent-posts" class="recent-posts">
+                <h2>最近更新的文章</h2>
+                <ul id="recent-posts-list"></ul>
+            </div>
         </section>
     </main>
 
@@ -33,6 +39,31 @@
     <footer>
         <p>&copy; 2025 Vekaris的博客. 版权所有.</p>
     </footer>
+    <script>
+        async function fetchRecentPosts() {
+            try {
+                const response = await fetch('docs/list.json');
+                const posts = await response.json();
+
+                // 按日期排序，获取最近的3篇文章
+                posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const recentPosts = posts.slice(0, 3);
+
+                const recentPostsList = document.getElementById('recent-posts-list');
+                recentPostsList.innerHTML = '';
+
+                recentPosts.forEach(post => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="docs/index.html?file=${post.fileName}">${post.title}</a>`;
+                    recentPostsList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        }
+
+        window.onload = fetchRecentPosts;
+    </script>
 </body>
 
 </html>
