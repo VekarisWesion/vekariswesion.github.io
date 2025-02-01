@@ -112,11 +112,18 @@ a:hover {
     transform: scale(1.1); /* 使超链接在悬停时放大到原来的 1.1 倍 */
 }
 
+.tags {
+    color: #888;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
 .category-filter {
     margin-bottom: 10px;
 }
 
 .category {
-    margin-left: 10px;
     color: #666;
+    font-size: 0.9em;
+    margin-left: 10px;
 }

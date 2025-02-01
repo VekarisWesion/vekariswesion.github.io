@@ -57,10 +57,20 @@
     <!-- 包裹分类筛选和搜索框 -->
     <div class="filter-search-container">
         <!-- 分类筛选 -->
+        <p>分类:</p>
         <div class="category-filter">
             <select id="category-select">
                 <option value="all">全部</option>
                 <!-- 动态生成分类选项 -->
+            </select>
+        </div>
+
+        <!-- 标签筛选 -->
+        <p>标签:</p>
+        <div class="tag-filter">
+            <select id="tag-select">
+                <option value="all">全部</option>
+                <!-- 动态生成标签选项 -->
             </select>
         </div>
 
@@ -99,14 +109,38 @@
                     categorySelect.appendChild(option);
                 });
 
+                // 生成标签选项
+                const tagSelect = document.getElementById('tag-select');
+                const tags = new Set();
+                posts.forEach(post => post.tags.forEach(tag => tags.add(tag)));
+                tags.forEach(tag => {
+                    const option = document.createElement('option');
+                    option.value = tag;
+                    option.textContent = tag;
+                    tagSelect.appendChild(option);
+                });
+
                 displayPosts(posts);
                 setupSearch(posts);
                 setupCategoryFilter(posts);
+                setupTagFilter(posts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         }
-
+        function setupTagFilter(posts) {
+            const tagSelect = document.getElementById('tag-select');
+            tagSelect.addEventListener('change', function () {
+                const selectedTag = this.value;
+                let filteredPosts;
+                if (selectedTag === 'all') {
+                    filteredPosts = posts;
+                } else {
+                    filteredPosts = posts.filter(post => post.tags.includes(selectedTag));
+                }
+                displayPosts(filteredPosts);
+            });
+        }
         function displayPosts(posts) {
             const postList = document.getElementById('post-list');
             postList.innerHTML = '';
@@ -118,6 +152,7 @@
                     <p>${post.intro}</p>
                     <span class="date">发布日期：${post.date}</span>
                     <span class="category">分类：${post.category}</span>
+                    <span class="tags">标签：${post.tags.join(', ')}</span>
                 `;
                 postList.appendChild(postPreview);
             });

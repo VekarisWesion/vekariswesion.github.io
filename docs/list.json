@@ -1,9 +1,10 @@
 [
     {
         "title": "README",
-        "intro": "个人简介",
+        "intro": "个人简介 personal profile",
         "date": "2025-2-1",
-        "fileName": "docs/README.md",
-        "category": "个人"
+        "fileName": "docs/README/zh-cn.md",
+        "category": "个人",
+        "tags": ["无"]
     }
 ]
