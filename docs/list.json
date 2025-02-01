@@ -4,7 +4,7 @@
         "intro": "个人简介 personal profile",
         "date": "2025-2-1",
         "fileName": "docs/README/zh-cn.md",
-        "category": "个人",
+        "category": "无",
         "tags": ["基本信息"]
     },
     {
@@ -12,7 +12,7 @@
         "intro": "Zix的桌面UI简易容器",
         "date": "2025-2-1",
         "fileName": "docs/Zix/UI/zh-cn.md",
-        "category": "Program",
-        "tags": ["项目：Zix"]
+        "category": "Zix",
+        "tags": ["programming"]
     }
 ]

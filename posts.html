@@ -56,9 +56,9 @@
     <!-- 包裹分类筛选和搜索框 -->
     <div class="filter-search-container">
         <!-- 分类筛选 -->
-        <p>分类:</p>
+        <p>参与项目:</p>
         <div class="category-filter">
-            <select id="category-select">
+            <select id="category-select" style="width: 150px;">
                 <option value="all">全部</option>
                 <!-- 动态生成分类选项 -->
             </select>
@@ -67,7 +67,7 @@
         <!-- 标签筛选 -->
         <p>标签:</p>
         <div class="tag-filter">
-            <select id="tag-select">
+            <select id="tag-select" style="width: 150px;">
                 <option value="all">全部</option>
                 <!-- 动态生成标签选项 -->
             </select>
@@ -179,7 +179,7 @@
                     <h2><a href="docs/index.html?file=${post.fileName}">${post.title}</a></h2>
                     <p>${post.intro}</p>
                     <span class="date">发布日期：${post.date}</span>
-                    <span class="category">分类：${post.category}</span>
+                    <span class="category">参与项目：${post.category}</span>
                     <span class="tags">标签：${post.tags.join(', ')}</span>
                 `;
                 postList.appendChild(postPreview);
