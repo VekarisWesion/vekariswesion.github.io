@@ -128,19 +128,49 @@
                 console.error('Error fetching posts:', error);
             }
         }
+
         function setupTagFilter(posts) {
             const tagSelect = document.getElementById('tag-select');
+            const categorySelect = document.getElementById('category-select');
             tagSelect.addEventListener('change', function () {
                 const selectedTag = this.value;
+                const selectedCategory = categorySelect.value;
+                console.log("t:", selectedTag, "c:", selectedCategory);
                 let filteredPosts;
                 if (selectedTag === 'all') {
-                    filteredPosts = posts;
+                    if (selectedCategory !== "all") {
+                        filteredPosts = posts.filter(post => post.category === selectedCategory);
+                    } else {
+                        filteredPosts = posts;
+                    }
                 } else {
-                    filteredPosts = posts.filter(post => post.tags.includes(selectedTag));
+                    if (selectedCategory !== "all") {
+                        filteredPosts = posts.filter(post => post.category === selectedCategory && post.tags.includes(selectedTag));
+                    } else {
+                        filteredPosts = posts.filter(post => post.tags.includes(selectedTag));
+                    }
                 }
                 displayPosts(filteredPosts);
             });
         }
+
+        function setupCategoryFilter(posts) {
+            const categorySelect = document.getElementById('category-select');
+            const tagSelect = document.getElementById('tag-select');
+            categorySelect.addEventListener('change', function () {
+                const selectedCategory = this.value;
+                let filteredPosts;
+                if (selectedCategory === 'all') {
+                    filteredPosts = posts;
+                } else {
+                    filteredPosts = posts.filter(post => post.category === selectedCategory);
+                }
+                displayPosts(filteredPosts);
+                // 重置标签筛选为全部
+                tagSelect.value = 'all';
+            });
+        }
+
         function displayPosts(posts) {
             const postList = document.getElementById('post-list');
             postList.innerHTML = '';
@@ -168,21 +198,6 @@
                 displayPosts(filteredPosts);
             });
         }
-
-        function setupCategoryFilter(posts) {
-            const categorySelect = document.getElementById('category-select');
-            categorySelect.addEventListener('change', function () {
-                const selectedCategory = this.value;
-                let filteredPosts;
-                if (selectedCategory === 'all') {
-                    filteredPosts = posts;
-                } else {
-                    filteredPosts = posts.filter(post => post.category === selectedCategory);
-                }
-                displayPosts(filteredPosts);
-            });
-        }
-
         window.onload = fetchPosts;
     </script>
 </body>
