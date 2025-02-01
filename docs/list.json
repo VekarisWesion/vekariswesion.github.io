@@ -1,14 +1,16 @@
 [
     {
-        "title": "第一篇文章标题",
-        "intro": "文章简介：这是我的第一篇博客文章，主要介绍了……",
+        "title": "文章标题1",
+        "intro": "文章简介1",
         "date": "2025-01-01",
-        "fileName": "post1.md"
+        "fileName": "post1.md",
+        "category": "技术"
     },
     {
-        "title": "第二篇文章标题",
-        "intro": "文章简介：在这篇文章中，我探讨了……",
-        "date": "2025-01-15",
-        "fileName": "post2.md"
+        "title": "文章标题2",
+        "intro": "文章简介2",
+        "date": "2025-01-10",
+        "fileName": "post2.md",
+        "category": "生活"
     }
 ]
