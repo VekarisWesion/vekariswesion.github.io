@@ -135,7 +135,6 @@
             tagSelect.addEventListener('change', function () {
                 const selectedTag = this.value;
                 const selectedCategory = categorySelect.value;
-                console.log("t:", selectedTag, "c:", selectedCategory);
                 let filteredPosts;
                 if (selectedTag === 'all') {
                     if (selectedCategory !== "all") {
