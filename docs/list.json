@@ -1,16 +1,9 @@
 [
     {
-        "title": "文章标题1",
-        "intro": "文章简介1",
-        "date": "2025-01-01",
-        "fileName": "post1.md",
-        "category": "技术"
-    },
-    {
-        "title": "文章标题2",
-        "intro": "文章简介2",
-        "date": "2025-01-10",
-        "fileName": "post2.md",
-        "category": "生活"
+        "title": "README",
+        "intro": "个人简介",
+        "date": "2025-2-1",
+        "fileName": "docs/README.md",
+        "category": "个人"
     }
 ]
