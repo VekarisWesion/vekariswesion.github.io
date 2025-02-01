@@ -1,5 +1,5 @@
 # 个人简介
-## 语言选择 Change Language
+
 [English](/docs/index.html?file=docs/README/en.md) · [中文]()
 
 ## 基本信息

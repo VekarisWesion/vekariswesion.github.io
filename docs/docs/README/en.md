@@ -1,6 +1,5 @@
 # Personal Profile
 
-## 语言选择 Change Language
 [English]() · [中文](/docs/index.html?file=docs/README/zh-cn.md)
 
 ## Basic Information
