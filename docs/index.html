@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../posts.html">文章列表</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主体内容 -->
+    <main>
+        <section id="post-detail" class="content">
+            <div id="markdown-content"></div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2025 Vekaris的博客. 版权所有.</p>
+    </footer>
+    <script>
+        async function loadMarkdown() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fileName = urlParams.get('file');
+            if (fileName) {
+                try {
+                    const response = await fetch(fileName);
+                    const markdown = await response.text();
+                    const html = marked.parse(markdown);
+                    const markdownContent = document.getElementById('markdown-content');
+                    markdownContent.innerHTML = html;
+                } catch (error) {
+                    console.error('Error loading Markdown:', error);
+                }
+            }
+        }
+
+        window.onload = loadMarkdown;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vekaris的文章列表</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="posts.html">文章列表</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 搜索框 -->
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="搜索文章...">
+    </div>
+
+    <!-- 主体内容 -->
+    <main>
+        <section id="posts" class="content">
+            <h1>文章列表</h1>
+            <div id="post-list"></div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2025 Vekaris的博客. 版权所有.</p>
+    </footer>
+    <script>
+        async function fetchPosts() {
+            try {
+                const response = await fetch('docs/list.json');
+                const posts = await response.json();
+                displayPosts(posts);
+                setupSearch(posts);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        }
+
+        function displayPosts(posts) {
+            const postList = document.getElementById('post-list');
+            postList.innerHTML = '';
+            posts.forEach(post => {
+                const postPreview = document.createElement('div');
+                postPreview.classList.add('post-preview');
+                postPreview.innerHTML = `
+                    <h2><a href="docs/index.html?file=${post.fileName}">${post.title}</a></h2>
+                    <p>${post.intro}</p>
+                    <span class="date">发布日期：${post.date}</span>
+                `;
+                postList.appendChild(postPreview);
+            });
+        }
+
+        function setupSearch(posts) {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const filteredPosts = posts.filter(post => {
+                    return post.title.toLowerCase().includes(searchTerm) || post.intro.toLowerCase().includes(searchTerm);
+                });
+                displayPosts(filteredPosts);
+            });
+        }
+
+        window.onload = fetchPosts;
+    </script>
+</body>
+
+</html>
