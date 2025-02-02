@@ -1,9 +1,9 @@
 [
     {
-        "title": "目前还没有项目",
-        "intro": "点击以返回主页",
+        "title": "目前还没有项目 None",
+        "intro": "点击以返回主页 Click to return to the homepage",
         "date": "2025-2-2",
-        "link": "https://vekariswesion.github.io",
+        "link": "/",
         "category": "无",
         "tags": ["无"]
     }
