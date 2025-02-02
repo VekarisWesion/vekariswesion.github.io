@@ -44,7 +44,6 @@
     <footer>
         <p>&copy; 2025 Vekaris版权所有.</p>
     </footer>
-
     <script>
         async function fetchVideo() {
             try {
@@ -66,6 +65,9 @@
                     // 设置页面标题为视频标题
                     document.title = currentVideo.title;
                 }
+
+                // 弹窗提示默认为静音
+                alert("视频默认静音\nVideo muted by default");
             } catch (error) {
                 console.error('Error fetching video:', error);
             }
