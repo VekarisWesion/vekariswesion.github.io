@@ -60,8 +60,13 @@ nav ul li a:hover {
 }
 
 .date {
-    color: #999;
+    color: #666;
     font-size: 0.9em;
+}
+
+.type {
+    color: #666;
+    font-size: 0.9em; 
 }
 
 .btn {
@@ -113,7 +118,7 @@ a:hover {
 }
 
 .tags {
-    color: #888;
+    color: #aaa;
     font-size: 0.8em;
     margin-left: 10px;
 }
@@ -123,7 +128,7 @@ a:hover {
 }
 
 .category {
-    color: #666;
+    color: #888;
     font-size: 0.9em;
     margin-left: 10px;
 }

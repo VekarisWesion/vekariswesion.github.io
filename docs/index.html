@@ -8,6 +8,27 @@
     <title>文章详情</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="icon" href="../icon.png" type="image/png">
+    <style>
+        /* 回到顶部按钮的样式 */
+        #back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 450px;
+            display: none;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -35,6 +56,9 @@
     <footer>
         <p>&copy; 2025 Vekaris版权所有.</p>
     </footer>
+
+    <!-- 添加回到顶部按钮 -->
+    <button id="back-to-top" onclick="scrollToTop()">回到顶部</button>
 
     <script>
         async function fetchPost() {
@@ -74,6 +98,28 @@
         script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
         script.onload = fetchPost;
         document.head.appendChild(script);
+
+        // 回到顶部的函数
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 显示回到顶部按钮的函数
+        function showBackToTopButton() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("back-to-top").style.display = "block";
+            } else {
+                document.getElementById("back-to-top").style.display = "none";
+            }
+        }
+
+        // 监听页面滚动事件，显示或隐藏回到顶部按钮
+        window.onscroll = function() {
+            showBackToTopButton();
+        };
     </script>
 </body>
 
