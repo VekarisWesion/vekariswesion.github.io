@@ -24,8 +24,8 @@
     <!-- 主体内容 -->
     <main>
         <section id="home" class="content">
-            <h1>欢迎来到Vekaris的博客</h1>
-            <p>在这里，我将分享我的生活感悟、技术心得和各种有趣的想法。<a href="docs/index.html?file=docs/README/zh-cn.md">README.md</a></p>
+            <h1>欢迎，我是Vekaris</h1>
+            <p>在这里，我将分享我的技术心得和有趣想法。<b><a href="docs/index.html?file=docs/README/zh-cn.md">README.md</a></b></p>
             <a href="posts.html" class="btn">查看所有文章</a>
             <a href="projects/posts.html" class="btn">查看所有项目</a>
 
@@ -40,6 +40,14 @@
     <!-- 页脚 -->
     <footer>
         <p>&copy; 2025 Vekaris版权所有.</p>
+        <!-- 社交媒体链接 -->
+        <div class="social-media-links">
+            <p>
+            <a href="https://github.com/VekarisWesion" target="_blank" style="color: white;">GitHub</a>
+            |
+            <a href="https://space.bilibili.com/2058469352" target="_blank" style="color: white;">Bilibili</a>
+            </p>
+        </div>
     </footer>
     <script>
         async function fetchRecentPosts() {
@@ -47,9 +55,9 @@
                 const response = await fetch('docs/list.json');
                 const posts = await response.json();
 
-                // 按日期排序，获取最近的3篇文章
+                // 按日期排序，获取最近的5篇文章
                 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-                const recentPosts = posts.slice(0, 3);
+                const recentPosts = posts.slice(0, 5);
 
                 const recentPostsList = document.getElementById('recent-posts-list');
                 recentPostsList.innerHTML = '';
