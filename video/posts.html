@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vekaris的视频列表</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../icon.png" type="image/png">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 新增样式，让筛选和搜索框容器水平排列 */
+        .filter-search-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        margin-top: 50px; /* 调整顶部外边距，使下拉框整体下移 */
+        justify-content: center;
+        }
+
+        /* 对分类筛选和搜索框容器进行包裹 */
+        .category-filter,
+        .search-container {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../posts.html">文章列表</a></li>
+                <li><a href="../projects/posts.html">项目列表</a></li>
+                <li><a href="../ann_posts.html">公告</a></li>
+                <li><a href="posts.html">视频</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 包裹分类筛选和搜索框 -->
+    <div class="filter-search-container">
+        <!-- 分类筛选 -->
+        <p>分类:</p>
+        <div class="category-filter">
+            <select id="category-select" style="width: 150px;">
+                <option value="all">全部</option>
+                <!-- 动态生成分类选项 -->
+            </select>
+        </div>
+
+        <!-- 标签筛选 -->
+        <p>标签:</p>
+        <div class="tag-filter">
+            <select id="tag-select" style="width: 150px;">
+                <option value="all">全部</option>
+                <!-- 动态生成标签选项 -->
+            </select>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜索文章...">
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <main>
+        <section id="posts" class="content">
+            <h1>文章列表</h1>
+            <div id="post-list"></div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2025 Vekaris版权所有.</p>
+    </footer>
+    <script>
+        async function fetchPosts() {
+            try {
+                const response = await fetch('list.json');
+                const posts = await response.json();
+
+                // 生成分类选项
+                const categorySelect = document.getElementById('category-select');
+                const categories = new Set();
+                posts.forEach(post => categories.add(post.category));
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categorySelect.appendChild(option);
+                });
+
+                // 生成标签选项
+                const tagSelect = document.getElementById('tag-select');
+                const tags = new Set();
+                posts.forEach(post => post.tags.forEach(tag => tags.add(tag)));
+                tags.forEach(tag => {
+                    const option = document.createElement('option');
+                    option.value = tag;
+                    option.textContent = tag;
+                    tagSelect.appendChild(option);
+                });
+
+                displayPosts(posts);
+                setupSearch(posts);
+                setupCategoryFilter(posts);
+                setupTagFilter(posts);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        }
+
+        function setupTagFilter(posts) {
+            const tagSelect = document.getElementById('tag-select');
+            const categorySelect = document.getElementById('category-select');
+            tagSelect.addEventListener('change', function () {
+                const selectedTag = this.value;
+                const selectedCategory = categorySelect.value;
+                let filteredPosts;
+                if (selectedTag === 'all') {
+                    if (selectedCategory !== "all") {
+                        filteredPosts = posts.filter(post => post.category === selectedCategory);
+                    } else {
+                        filteredPosts = posts;
+                    }
+                } else {
+                    if (selectedCategory !== "all") {
+                        filteredPosts = posts.filter(post => post.category === selectedCategory && post.tags.includes(selectedTag));
+                    } else {
+                        filteredPosts = posts.filter(post => post.tags.includes(selectedTag));
+                    }
+                }
+                displayPosts(filteredPosts);
+            });
+        }
+
+        function setupCategoryFilter(posts) {
+            const categorySelect = document.getElementById('category-select');
+            const tagSelect = document.getElementById('tag-select');
+            categorySelect.addEventListener('change', function () {
+                const selectedCategory = this.value;
+                let filteredPosts;
+                if (selectedCategory === 'all') {
+                    filteredPosts = posts;
+                } else {
+                    filteredPosts = posts.filter(post => post.category === selectedCategory);
+                }
+                displayPosts(filteredPosts);
+                // 重置标签筛选为全部
+                tagSelect.value = 'all';
+            });
+        }
+
+        function displayPosts(posts) {
+            const postList = document.getElementById('post-list');
+            postList.innerHTML = '';
+            posts.forEach(post => {
+                const postPreview = document.createElement('div');
+                postPreview.classList.add('post-preview');
+                postPreview.innerHTML = `
+                    <h2><a href="index.html?file=${post.fileName}">${post.title}</a></h2>
+                    <p>${post.intro}</p>
+                    <span class="date">发布日期：${post.date}</span>
+                    <span class="category">分类：${post.category}</span>
+                    <span class="tags">标签：${post.tags.join(', ')}</span>
+                `;
+                postList.appendChild(postPreview);
+            });
+        }
+
+        function setupSearch(posts) {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const filteredPosts = posts.filter(post => {
+                    return post.title.toLowerCase().includes(searchTerm) || post.intro.toLowerCase().includes(searchTerm);
+                });
+                displayPosts(filteredPosts);
+            });
+        }
+        window.onload = fetchPosts;
+    </script>
+</body>
+
+</html>
