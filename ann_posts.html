@@ -77,14 +77,14 @@
 
         <!-- 搜索框 -->
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="搜索文章...">
+            <input type="text" id="search-input" placeholder="搜索公告...">
         </div>
     </div>
 
     <!-- 主体内容 -->
     <main>
         <section id="posts" class="content">
-            <h1>文章列表</h1>
+            <h1>公告列表</h1>
             <div id="post-list"></div>
         </section>
     </main>
@@ -96,7 +96,7 @@
     <script>
         async function fetchPosts() {
             try {
-                const response = await fetch('docs/list.json');
+                const response = await fetch('docs/ann_list.json');
                 const posts = await response.json();
 
                 // 生成分类选项
