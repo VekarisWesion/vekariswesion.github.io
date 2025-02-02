@@ -6,13 +6,5 @@
         "fileName": "docs/README/zh-cn.md",
         "category": "无",
         "tags": ["基本信息"]
-    },
-    {
-        "title": "UI",
-        "intro": "Zix的桌面UI简易容器",
-        "date": "2025-2-1",
-        "fileName": "docs/Zix/UI/zh-cn.md",
-        "category": "Zix",
-        "tags": ["programming"]
     }
 ]
