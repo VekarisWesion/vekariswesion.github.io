@@ -43,6 +43,13 @@
                 <h2>最近更新的文章</h2>
                 <ul id="recent-posts-list"></ul>
             </div>
+
+            <!-- 最近发布的公告框 -->
+            <div id="recent-announcements" class="recent-announcements">
+                <h2>最近发布的公告</h2>
+                <ul id="recent-announcements-list"></ul>
+            </div>
+            </div>
         </section>
     </main>
 
@@ -81,7 +88,32 @@
             }
         }
 
-        window.onload = fetchRecentPosts;
+        async function fetchRecentAnnouncements() {
+            try {
+                const response = await fetch('docs/ann_list.json');
+                const announcements = await response.json();
+
+                // 按日期排序，获取最近的5条公告
+                announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const recentAnnouncements = announcements.slice(0, 5);
+
+                const recentAnnouncementsList = document.getElementById('recent-announcements-list');
+                recentAnnouncementsList.innerHTML = '';
+
+                recentAnnouncements.forEach(announcement => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="announcements/index.html?file=${announcement.fileName}">${announcement.title}</a>`;
+                    recentAnnouncementsList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching announcements:', error);
+            }
+        }
+        
+        window.onload = () => {
+            fetchRecentPosts();
+            fetchRecentAnnouncements();
+        };
     </script>
 </body>
 </html>
