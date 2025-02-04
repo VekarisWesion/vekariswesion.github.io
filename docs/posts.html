@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+<!-- OK -->
 <html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vekaris的公告列表</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="icon.png" type="image/png">
+    <title>Vekaris的文章列表</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="icon" href="../static/icon.png" type="image/png">
     <style>
         body {
             min-height: 100vh;
@@ -47,11 +48,11 @@
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">首页</a></li>
-                <li><a href="posts.html">文章列表</a></li>
-                <li><a href="projects/posts.html">项目列表</a></li>
-                <li><a href="ann_posts.html">公告</a></li>
-                <li><a href="video/posts.html">视频</a></li>
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="posts.html?mode=docs">文章列表</a></li>
+                <li><a href="../projects/posts.html">项目列表</a></li>
+                <li><a href="posts.html?mode=anns">公告</a></li>
+                <li><a href="../video/posts.html">视频</a></li>
             </ul>
         </nav>
     </header>
@@ -59,7 +60,7 @@
     <!-- 包裹分类筛选和搜索框 -->
     <div class="filter-search-container">
         <!-- 分类筛选 -->
-        <p>分类:</p>
+        <p id="category-mode">参与项目:</p>
         <div class="category-filter">
             <select id="category-select" style="width: 150px;">
                 <option value="all">全部</option>
@@ -78,14 +79,14 @@
 
         <!-- 搜索框 -->
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="搜索公告...">
+            <input type="text" id="search-input" placeholder="搜索文章...">
         </div>
     </div>
 
     <!-- 主体内容 -->
     <main>
         <section id="posts" class="content">
-            <h1>公告列表</h1>
+            <h1 id="list-title">文章列表</h1>
             <div id="post-list"></div>
         </section>
     </main>
@@ -97,9 +98,21 @@
     <script>
         async function fetchPosts() {
             try {
-                const response = await fetch('ann_list.json');
+                // 从URL参数中获取mode
+                const urlParams = new URLSearchParams(window.location.search);
+                const mode = urlParams.get('mode');
+                const title = mode === 'docs'? '文章列表' : '公告列表'
+                document.title = title;
+                document.getElementById('list-title').textContent = title;
+                
+                // 根据mode决定显示哪个分类方式
+                const categoryMode = (mode === 'docs' ? '参与项目' : '分类') + ':';
+                const categoryModeElement = document.getElementById('category-mode');
+                categoryModeElement.textContent = categoryMode;
+
+                // 根据mode决定使用哪个文件
+                const response = await fetch(mode === 'docs' ? 'list.json' : 'ann_list.json');
                 const posts = await response.json();
-                console.log(posts);
 
                 // 生成分类选项
                 const categorySelect = document.getElementById('category-select');
@@ -180,10 +193,10 @@
                 const postPreview = document.createElement('div');
                 postPreview.classList.add('post-preview');
                 postPreview.innerHTML = `
-                    <h2><a href="docs/index.html?file=${post.fileName}&title=${post.title}">${post.title}</a></h2>
+                    <h2><a href="index.html?file=${post.fileName}&title=${post.title}">${post.title}</a></h2>
                     <p>${post.intro}</p>
                     <span class="date">发布日期：${post.date}</span>
-                    <span class="category">分类：${post.category}</span>
+                    <span class="category">参与项目：${post.category}</span>
                     <span class="tags">标签：${post.tags.join(', ')}</span>
                 `;
                 postList.appendChild(postPreview);
