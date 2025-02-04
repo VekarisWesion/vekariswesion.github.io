@@ -66,17 +66,10 @@
                 // 获取 URL 参数中的文件名
                 const urlParams = new URLSearchParams(window.location.search);
                 const fileName = urlParams.get('file');
+                const title = urlParams.get('title');
 
-                // 获取文章列表数据，用于查找文章标题
-                const response = await fetch('list.json');
-                const posts = await response.json();
-
-                // 查找当前文章的标题
-                const currentPost = posts.find(post => post.fileName === fileName);
-                if (currentPost) {
-                    // 设置页面标题为文章标题
-                    document.title = currentPost.title;
-                }
+                // 设置页面标题为文章标题
+                document.title = title;
 
                 // 获取文章内容
                 const postResponse = await fetch(fileName);
