@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vekaris的文章列表</title>
-    <link rel="stylesheet" href="../static/styles.css">
-    <link rel="icon" href="../static/icon.png" type="image/png">
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="icon" href="static/icon.png" type="image/png">
     <style>
         body {
             min-height: 100vh;
@@ -111,7 +111,7 @@
                 categoryModeElement.textContent = categoryMode;
 
                 // 根据mode决定使用哪个文件
-                const response = await fetch(mode === 'docs' ? 'list.json' : 'ann_list.json');
+                const response = await fetch(mode === 'docs' ? 'docs/list.json' : 'docs/ann_list.json');
                 const posts = await response.json();
 
                 // 生成分类选项
