@@ -97,7 +97,7 @@
     <script>
         async function fetchPosts() {
             try {
-                const response = await fetch('docs/list.json');
+                const response = await fetch('list.json');
                 const posts = await response.json();
 
                 // 生成分类选项
