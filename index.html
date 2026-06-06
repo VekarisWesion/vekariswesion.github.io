@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -193,7 +193,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://vekariswesion.github.io/2026/05/17/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://vekariswesion.github.io/2026/06/06/%E5%BE%AE%E4%BF%A1Linux%E7%89%88%E6%9C%AC%E5%9C%A8Wayland%E4%BC%9A%E8%AF%9D%E4%B8%8A%E7%9A%84%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -211,7 +211,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/17/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+          <a href="/2026/06/06/%E5%BE%AE%E4%BF%A1Linux%E7%89%88%E6%9C%AC%E5%9C%A8Wayland%E4%BC%9A%E8%AF%9D%E4%B8%8A%E7%9A%84%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">微信Linux版本在Wayland会话上的输入法问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -223,7 +223,88 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-05-17 20:18:46 / 修改时间：20:10:41" itemprop="dateCreated datePublished" datetime="2026-05-17T20:18:46+08:00">2026-05-17</time>
+      <time title="创建时间：2026-06-06 10:13:18 / 修改时间：10:20:28" itemprop="dateCreated datePublished" datetime="2026-06-06T10:13:18+08:00">2026-06-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="微信Linux版本在Wayland会话上的输入法问题"><a href="#微信Linux版本在Wayland会话上的输入法问题" class="headerlink" title="微信Linux版本在Wayland会话上的输入法问题"></a>微信Linux版本在Wayland会话上的输入法问题</h1><p>微信的Linux版本十分垃圾，fcitx5在Wayland会话上的微信无法正常工作。</p>
+<p>此时，我们需要通过修改desktop文件来解决这个问题。<br>在desktop文件中修改以下内容：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Desktop Entry]</span></span><br><span class="line">...</span><br><span class="line"><span class="attr">Exec</span>=env QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx GTK_IM_MODULE=fcitx /usr/bin/wechat %U</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>作用：<br>让微信的QT框架使用fcitx5作为输入法。</p>
+<p>顺带提一嘴，若窗口缩放有问题，而可以使用<code>QT_SCALE_FACTOR=缩放倍数</code>来解决，同样修改至Exec字段。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://vekariswesion.github.io/2026/05/20/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Vekaris Wesion">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vekaris Wesion">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Vekaris Wesion">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/05/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-05-20 18:09:43" itemprop="dateCreated datePublished" datetime="2026-05-20T18:09:43+08:00">2026-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-05-17 20:10:41" itemprop="dateModified" datetime="2026-05-17T20:10:41+08:00">2026-05-17</time>
     </span>
 
   
